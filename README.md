@@ -1,3 +1,4 @@
+[![Build Status][travis-image]][travis-url] [![Coverage Status][coveralls-image]][coveralls-url]
 # snappy
 
 Snappy is part of Ubuntu Core and enables a fully transactional Ubuntu system.
