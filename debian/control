@@ -1,0 +1,64 @@
+Source: ubuntu-snappy
+Section: devel
+Priority: optional
+Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
+Build-Depends: bash-completion,
+               debhelper (>= 9),
+               dh-golang,
+               dh-systemd,
+               fakeroot,
+               gettext,
+               golang-ar-dev,
+               golang-check.v1-dev,
+               golang-gettext-dev,
+               golang-go,
+               golang-go-flags-dev,
+               golang-go.crypto-dev,
+               golang-goconfigparser-dev,
+               golang-github-peterh-liner-dev,
+               golang-pb-dev,
+               golang-pty-dev,
+               golang-uboot-go-dev,
+               golang-yaml.v2-dev,
+               golang-mux-dev,
+               golang-gopkg-tomb.v2-dev,
+               golang-go-systemd-dev,
+               lsb-release,
+               python3,
+               python3-markdown,
+               squashfs-tools
+Standards-Version: 3.9.6
+Homepage: https://github.com/ubuntu-core/snappy
+Vcs-Browser: https://github.com/ubuntu-core/snappy
+Vcs-Git: https://github.com/ubuntu-core/snappy.git
+
+Package: golang-snappy-dev
+Architecture: all
+Depends: ${misc:Depends}
+Description: snappy development go packages.
+ Use these to use the snappy API.
+
+Package: ubuntu-snappy
+Architecture: all
+Depends: debsig-verify,
+         squashfs-tools,
+         system-image-cli (>= 3.0),
+         ubuntu-snappy-cli (= ${binary:Version}),
+         ubuntu-core-upgrader,
+         ubuntu-core-launcher (>= 0.2.3),
+         ubuntu-core-security-seccomp,
+         ubuntu-core-security-apparmor,
+         ubuntu-core-security-utils,
+         ${misc:Depends}
+Description: System components for Ubuntu Core Snappy.
+ Components and services that take care of an Ubuntu system with snappy.
+
+Package: ubuntu-snappy-cli
+Architecture: any
+Depends: ${misc:Depends}, ${shlibs:Depends}, adduser
+Replaces: ubuntu-core-snappy (<< 0.2~ppa90)
+Breaks: ubuntu-core-snappy (<< 0.2~ppa90)
+Conflicts: snappy
+Built-Using: ${misc:Built-Using}
+Description: Tool to interact with Ubuntu Core Snappy.
+ Manage an Ubuntu system with snappy.

@@ -1,0 +1,7 @@
+[Unit]
+Description=Ubuntu Core Snappy AutoUpdate
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/snappy update --automatic-reboot

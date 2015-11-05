@@ -1,0 +1,82 @@
+// -*- Mode: Go; indent-tabs-mode: t -*-
+
+/*
+ * Copyright (C) 2014-2015 Canonical Ltd
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 3 as
+ * published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
+
+package partition
+
+import (
+	"errors"
+	"fmt"
+	"os/exec"
+	"strings"
+)
+
+// FIXME: would it make sense to differenciate between launch errors and
+//        exit code? (i.e. something like (returnCode, error) ?)
+func runCommandImpl(args ...string) (err error) {
+	if len(args) == 0 {
+		return errors.New("no command specified")
+	}
+
+	if out, err := exec.Command(args[0], args[1:]...).CombinedOutput(); err != nil {
+		cmdline := strings.Join(args, " ")
+		return fmt.Errorf("Failed to run command '%s': %s (%s)",
+			cmdline, out, err)
+	}
+	return nil
+}
+
+// Run the command specified by args
+// This is a var instead of a function to making mocking in the tests easier
+var runCommand = runCommandImpl
+
+// Run command specified by args and return the output
+func runCommandWithStdoutImpl(args ...string) (output string, err error) {
+	if len(args) == 0 {
+		return "", errors.New("no command specified")
+	}
+
+	bytes, err := exec.Command(args[0], args[1:]...).Output()
+	if err != nil {
+		return "", err
+	}
+
+	return string(bytes), err
+}
+
+// This is a var instead of a function to making mocking in the tests easier
+var runCommandWithStdout = runCommandWithStdoutImpl
+
+// Run fsck(8) on specified device.
+func fsck(device string) (err error) {
+	return runCommand(
+		"/sbin/fsck",
+		"-M", // Paranoia - don't fsck if already mounted
+		"-av", device)
+}
+
+// Returns the position of the string in the given slice or -1 if its not found
+func stringInSlice(slice []string, value string) int {
+	for i, s := range slice {
+		if s == value {
+			return i
+		}
+	}
+
+	return -1
+}

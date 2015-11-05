@@ -1,0 +1,19 @@
+#!/bin/sh
+
+set -e
+
+SNAPPYUSER=snappypkg
+if [ "$(lsb_release -c -s)" = "vivid" ]; then
+    SNAPPYUSER=clickpkg
+fi
+
+if [ "$1" = configure ]; then
+    adduser --system \
+        --disabled-password \
+        --home /nonexistent \
+        --no-create-home \
+        --group \
+        $SNAPPYUSER
+fi
+
+#DEBHELPER#
