@@ -1,4 +1,3 @@
-[![Build Status][travis-image]][travis-url] [![Coverage Status][coveralls-image]][coveralls-url]
 # snappy
 
 Snappy is part of Ubuntu Core and enables a fully transactional Ubuntu system.
@@ -79,7 +78,7 @@ to have it available in `$GOPATH/bin`
 
 Contributions are always welcome! Please make sure that you sign the
 Canonical contributor licence agreement at
-http://www.ubuntu.com/legal/contributors 
+http://www.ubuntu.com/legal/contributors
 
 To get the source and propose a merge, this is what typically needs to
 be done:
@@ -120,5 +119,3 @@ There is more to read about the testing framework on the [website](https://labix
 
 [coveralls-image]: https://coveralls.io/repos/ubuntu-core/snappy/badge.svg?branch=master&service=github
 [coveralls-url]: https://coveralls.io/github/ubuntu-core/snappy?branch=master
-
-
