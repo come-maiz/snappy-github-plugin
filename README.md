@@ -1,3 +1,4 @@
+
 # snappy
 
 Snappy is part of Ubuntu Core and enables a fully transactional Ubuntu system.
